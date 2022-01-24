@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Tilesetify v1.0.3</title>
+    <style>
+      .smallText {
+        font-size: 12px;
+      }
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tilesetify</h1>
+    1) Veuillez fermer cette fenêtre et placer une map (ou plusieurs, si vous voulez compiler le contenu de plusieurs maps en un seul tileset) dans le dossier input présent à la racine de cette application. Veillez à ce que la largeur et la hauteur de votre map soient tous deux des multiples de 16. Dans le cas contraire le programme ne pourra pas la traiter.
+    <p/>2) Une fois cela fait, rouvrez cette application et patientez simplement jusqu'à ce qu'elle ait fini de traiter les données de votre map. Votre tileset apparaitra alors automatiquement dans le dossier output. Attention cependant, en fonction de la taille de votre map, ce processus peut prendre de quelques secondes à plusieurs dizaines de minutes, voire même plusieurs heures dans les cas extrêmes de très grosses maps. Tout ce que vous avez à faire est d'attendre en laissant cette fenêtre ouverte. Si vous la fermez le processus devra reprendre de zéro à la prochaine ouverture, mais tant qu'elle est ouverte vous devriez pouvoir continuer à vaquer à vos occupations sans craindre de perte de performance de la part de votre ordinateur.
+    <p/>3) Une fois le tileset apparu dans le dossier output, il ne vous reste plus qu'à fermer cette fenêtre et à le déplacer dans le dossier de votre projet. Pour traiter une nouvelle map, placez-là simplement dans le dossier input à la place de l'ancienne et redémarrez une fois de plus le programme. Enjoy.
+
+    <p class="smallText">Réalisé par Samuel Luc en 2022 avec
+      Node.js <span id="node-version"></span>,
+      Chromium <span id="chrome-version"></span>,
+      et Electron <span id="electron-version"></span>.
+    </p>
+  </body>
+</html>
