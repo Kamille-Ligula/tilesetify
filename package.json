@@ -1,6 +1,6 @@
 {
   "name": "Tilesetify",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A program to turn a 2D video game map into a tileset.",
   "main": "main.js",
   "scripts": {
@@ -21,9 +21,11 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.17.2",
     "fs": "0.0.1-security",
     "jimp": "^0.16.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "socket.io": "^4.4.1"
   },
   "config": {
     "forge": {
