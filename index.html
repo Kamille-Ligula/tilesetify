@@ -2,28 +2,75 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Tilesetify v1.0.4</title>
-    <style>
-      .smallText {
-        font-size: 12px;
-      }
-      h1 {
-        text-align: center;
-      }
-    </style>
+    <title>Tilesetify v1.0.5</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <!--meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"-->
+    <link rel="stylesheet" type="text/css" href="./styles.css">
   </head>
   <body>
-    <h1>Tilesetify</h1>
+    <h1 class='noselect'>Tilesetify</h1>
+    <table>
+      <body>
+        <tr>
+          <td class='noselect' style="padding-right: 5vw;">
+            <label for="tile-formats">Format de tile*:</label>
+            <select name="tileFormats" id="tile-formats">
+              <option value="8">8*8</option>
+              <option value="16" selected="selected">16*16</option>
+              <option value="24">24*24</option>
+              <option value="32">32*32</option>
+              <option value="48">48*48</option>
+              <option value="64">64*64</option>
+              <option value="128">128*128</option>
+            </select>
+            <br />* : La taille en pixels des carrés selon laquelle Tilesetify va découper votre map.
+            Afin d'obtenir le meilleur résultat, assurez-vous que ce format correspond à la taille des tiles de votre map.
+
+            <p>
+              <label for="tileset-width">Largeur du tileset:</label>
+              <select name="tilesetWidth" id="tileset-width">
+                <option value="4">4 tiles</option>
+                <option value="8">8 tiles</option>
+                <option value="12">12 tiles</option>
+                <option value="16">16 tiles</option>
+                <option value="20">20 tiles</option>
+                <option value="24" selected="selected">24 tiles</option>
+                <option value="32">32 tiles</option>
+                <option value="48">48 tiles</option>
+                <option value="64">64 tiles</option>
+              </select>
+            </p>
+
+            <p><button id="run-tilesetify">C'est parti !</button></p>
+
+            <div id="showMap"><img src="./placeholder.png" draggable="false" ondragstart="return false" class="nodrag" /></div>
+          </td>
+          <td>
+            <div id="showTileset"></div>
+            <!--div style="border:2px solid black;border-radius:3px;padding:5px;display:inline-block" draggable="true" id="drag1">
+              Drag me - File 1
+            </div-->
+          </td>
+        </tr>
+      </body>
+    </table>
+
+    <!--
     1) Veuillez fermer cette fenêtre et placer une map dans le dossier input présent à la racine de cette application. Veillez à ce que la largeur et la hauteur de votre map soient tous deux des multiples de 16. Dans le cas contraire le programme ne pourra pas la traiter.
     <p/>2) Une fois cela fait, rouvrez cette application et patientez simplement jusqu'à ce qu'elle ait fini de traiter les données de votre map. Votre tileset apparaitra alors automatiquement dans le dossier output. Attention cependant, en fonction de la taille de votre map, ce processus peut prendre de quelques secondes à plusieurs dizaines de minutes, voire même plusieurs heures dans les cas extrêmes de très grosses maps. Tout ce que vous avez à faire est d'attendre en laissant cette fenêtre ouverte. Si vous la fermez le processus devra reprendre de zéro à la prochaine ouverture, mais tant qu'elle est ouverte vous devriez pouvoir continuer à vaquer à vos occupations sans craindre de perte de performance de la part de votre ordinateur.
     <p/>3) Une fois le tileset apparu dans le dossier output, il ne vous reste plus qu'à fermer cette fenêtre et à le déplacer dans le dossier de votre projet. Pour traiter une nouvelle map, placez-là simplement dans le dossier input à la place de l'ancienne et redémarrez une fois de plus le programme. Enjoy.
 
-    <p class="smallText">Réalisé par Samuel Luc en 2022 avec
-      Node.js <span id="node-version"></span>,
-      Chromium <span id="chrome-version"></span>,
-      et Electron <span id="electron-version"></span>.
-    </p>
+    <p>Current theme source: <strong id="theme-source">System</strong></p>
+
+    <button id="toggle-dark-mode">Toggle Dark Mode</button>
+    <button id="reset-to-system">Reset to System Theme</button>
+
+    <p><button id="sendMessage">Send message</button></p>
+    -->
+
+
+
+    <script src="renderer.js"></script>
   </body>
 </html>

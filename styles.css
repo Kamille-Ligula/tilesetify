@@ -1,0 +1,49 @@
+@media (prefers-color-scheme: dark) {
+  body { background: #333; color: white; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background: #ddd; color: black; }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.nodrag {
+ -moz-user-select: none;
+ -webkit-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
+ -webkit-user-drag: none;
+ user-drag: none;
+ -webkit-touch-callout: none;
+}
+
+.smallText {
+  font-size: 12px;
+}
+h1 {
+  text-align: center;
+}
+
+#showMap {
+  width: 40vw;
+  height: 45vh;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+td {
+  width: 50vw;
+  vertical-align: top;
+}

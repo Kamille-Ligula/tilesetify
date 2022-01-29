@@ -1,28 +1,37 @@
 const Jimp = require('jimp');
 const fs = require("fs");
-const {manageDirs} = require("./manageDirs");
 const {findFactors} = require("./findFactors");
 const {closest} = require("./closest");
 
-let tilesetWidth = 41;
-let tileWidth = 16;
-let tileHeight = 16;
+let map;
+let width;
+let height;
+let fileName;
 
-async function tilesetify(file) {
-  console.log(Date.now())
-
-  const img = await Jimp.read('input/'+file)
+async function loadMap(file) {
+  const img = await Jimp.read(file)
     .then(img => {
-      return [img.bitmap.width, img.bitmap.height];
+      return [img, img.bitmap.width, img.bitmap.height];
     })
     .catch(err => {
       console.error(err);
     })
 
-  const extension = '.'+file.split(".").pop();
-  const minusExtension = file.substring(0, file.length - extension.length);
-  const width = img[0];
-  const height = img[1];
+  map = img[0];
+  width = img[1];
+  height = img[2];
+  fileName = file.split('\\').pop().split('/').pop();
+}
+
+async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
+  console.log(Date.now())
+
+  if (map == undefined) {
+    return ({error: true, success: false, message: 'no file'})
+  }
+
+  //const extension = '.'+file.split(".").pop();
+  // minusExtension = file.substring(0, file.length - extension.length);
   const tilesImgs = [];
   const tilesHash = [];
   const mapChunks = [];
@@ -32,8 +41,9 @@ async function tilesetify(file) {
   const checkWidth = width/tileWidth;
   const checkHeight = height/tileHeight;
   if (checkWidth !== Math.round(checkWidth) || checkHeight !== Math.round(checkHeight)) {
-    console.log('Your image\'s width and/or height is invalid (both must be multiples of 16)')
-    return;
+    //console.log('Your image\'s width and/or height is invalid (both must be multiples of '+tileWidth+')')
+    //console.log('La largeur et/ou la hauteur de votre map est non valide. Veuillez vérifier que les deux sont bien multiples de '+tileWidth);
+    return ({error: true, success: false, message: 'La largeur et/ou la hauteur de votre map est non valide. Veuillez soit vérifier que les deux sont bien multiples de '+tileWidth+' et faire glisser la map une fois corrigée dans le champ prévu à cet effet, soit modifier le champ dédié à la taille des tiles tels que présents sur la map.'});
   }
 
   let chunckWidth, chunkHeight, nbreHorizChunks, nbreVerticChunks;
@@ -48,12 +58,12 @@ async function tilesetify(file) {
     for (let j=0; j<nbreVerticChunks; j++) {
       console.log('Preparing file. Reading line '+(j+1)+'/'+(nbreVerticChunks)+'...')
       for (let i=0; i<nbreHorizChunks; i++) {
-        const chunk = await Jimp.read('input/'+file)
+        const chunk = await Jimp.read(map)
           .then(chunk => {
             const x = chunckWidth*i;
             const y = chunkHeight*j;
             chunk.crop(x, y, chunckWidth, chunkHeight);
-            chunk.write('temp/part'+chunksImgs.length+'-'+file);
+            //chunk.write('temp/part'+chunksImgs.length+'-'+file);
             return [chunk, chunk.hash()];
           })
           .catch(err => {
@@ -89,11 +99,11 @@ async function tilesetify(file) {
     console.log('File ready for processing.')
   }
   else {
-    const input = fs.readFileSync('input/'+file);
+    //const input = fs.readFileSync('input/'+file);
 
-    fs.writeFileSync('temp/part0-'+file, input);
+    //fs.writeFileSync('temp/part0-'+file, input);
 
-    chunksImgs.push('placeholder')
+    chunksImgs.push(map)
     chunckWidth = width;
     chunkHeight = height;
   }
@@ -102,7 +112,7 @@ async function tilesetify(file) {
     console.log('PROCESSING PART '+(l+1)+'/'+chunksImgs.length+'...')
     for (let j=0; j<chunkHeight/tileHeight; j++) {
       for (let i=0; i<chunckWidth/tileWidth; i++) {
-        const tile = await Jimp.read('temp/part'+l+'-'+file)
+        const tile = await Jimp.read(chunksImgs[l])
           .then(tile => {
             const x = tileWidth*i;
             const y = tileHeight*j;
@@ -144,7 +154,7 @@ async function tilesetify(file) {
   let tilesetHeight = Math.ceil(tilesImgs.length/tilesetWidth);
   if (tilesetHeight === 0) { tilesetHeight+=1; }
 
-  new Jimp(tilesetWidth*tileWidth, tilesetHeight*tileHeight, async (err, tileset) => {
+  const createTileset = await new Jimp(tilesetWidth*tileWidth, tilesetHeight*tileHeight, async (err, tileset) => {
     let tileset_x = 0;
     let tileset_y = 0;
 
@@ -159,12 +169,12 @@ async function tilesetify(file) {
       }
     }
 
-    tileset.write('output/tileset-'+file);
+    tileset.write('output/tileset-'+fileName);
   });
 
-  manageDirs();
-
   console.log(Date.now())
+  return ({error: false, success: true, message: 'output/tileset-'+fileName})
 }
 
 exports.tilesetify = tilesetify;
+exports.loadMap = loadMap;
