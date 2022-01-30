@@ -53,54 +53,62 @@ async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
   let chunckWidth, chunkHeight, nbreHorizChunks, nbreVerticChunks;
   const chunksImgs = [];
   const chunksHash = [];
-  if (width > 1000 && height > 1000) {
-    chunckWidth = closest(300, widthFactors);
-    chunkHeight = closest(300, heightFactors);
-    nbreHorizChunks = width/chunckWidth;
-    nbreVerticChunks = height/chunkHeight;
+  if (width > 768 && height > 768) {
+    chunckWidth = closest(384, widthFactors);
+    chunkHeight = closest(384, heightFactors);
 
-    for (let j=0; j<nbreVerticChunks; j++) {
-      console.log('Preparing file. Reading line '+(j+1)+'/'+(nbreVerticChunks)+'...')
-      for (let i=0; i<nbreHorizChunks; i++) {
-        const chunk = await Jimp.read(map)
-          .then(chunk => {
-            const x = chunckWidth*i;
-            const y = chunkHeight*j;
-            chunk.crop(x, y, chunckWidth, chunkHeight);
-            //chunk.write('temp/part'+chunksImgs.length+'-'+file);
-            return [chunk, chunk.hash()];
-          })
-          .catch(err => {
-            console.error(err);
-          })
+    if (Math.round(chunckWidth/tileWidth) === chunckWidth/tileWidth && Math.round(chunkHeight/tileHeight) === chunkHeight/tileHeight) {
+      nbreHorizChunks = width/chunckWidth;
+      nbreVerticChunks = height/chunkHeight;
 
-        let repeatingPixels;
+      for (let j=0; j<nbreVerticChunks; j++) {
+        console.log('Preparing file. Reading line '+(j+1)+'/'+(nbreVerticChunks)+'...')
+        for (let i=0; i<nbreHorizChunks; i++) {
+          const chunk = await Jimp.read(map)
+            .then(chunk => {
+              const x = chunckWidth*i;
+              const y = chunkHeight*j;
+              chunk.crop(x, y, chunckWidth, chunkHeight);
+              //chunk.write('temp/part'+chunksImgs.length+'-'+file);
+              return [chunk, chunk.hash()];
+            })
+            .catch(err => {
+              console.error(err);
+            })
 
-        if (chunksImgs.length > 0) {
-          for (let k=0; k<chunksImgs.length; k++) {
-            repeatingPixels = 0;
-            if (chunk[1] === chunksHash[k]) {
-              for (let m=0; m<chunckWidth; m++) {
-                for (let n=0; n<chunkHeight; n++) {
-                  if (chunk[0].getPixelColor(m, n) === chunksImgs[k].getPixelColor(m, n)) {
-                    repeatingPixels++;
+          let repeatingPixels;
+
+          if (chunksImgs.length > 0) {
+            for (let k=0; k<chunksImgs.length; k++) {
+              repeatingPixels = 0;
+              if (chunk[1] === chunksHash[k]) {
+                for (let m=0; m<chunckWidth; m++) {
+                  for (let n=0; n<chunkHeight; n++) {
+                    if (chunk[0].getPixelColor(m, n) === chunksImgs[k].getPixelColor(m, n)) {
+                      repeatingPixels++;
+                    }
                   }
                 }
               }
-            }
-            if (repeatingPixels === chunckWidth*chunkHeight) {
-              break;
+              if (repeatingPixels === chunckWidth*chunkHeight) {
+                break;
+              }
             }
           }
-        }
 
-        if (repeatingPixels < chunckWidth*chunkHeight || chunksImgs.length === 0) {
-          chunksImgs.push(chunk[0]);
-          chunksHash.push(chunk[1]);
+          if (repeatingPixels < chunckWidth*chunkHeight || chunksImgs.length === 0) {
+            chunksImgs.push(chunk[0]);
+            chunksHash.push(chunk[1]);
+          }
         }
       }
+      console.log('File ready for processing.')
     }
-    console.log('File ready for processing.')
+    else {
+      chunksImgs.push(map)
+      chunckWidth = width;
+      chunkHeight = height;
+    }
   }
   else {
     //const input = fs.readFileSync('input/'+file);
