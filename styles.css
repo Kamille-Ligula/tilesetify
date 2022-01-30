@@ -41,8 +41,9 @@ h1 {
 }
 
 #showMap {
-  width: 40vw;
-  height: 45vh;
+  position: fixed;
+  left: 10vw;
+  top: 10vh;
 }
 
 img {

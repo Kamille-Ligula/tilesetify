@@ -32,10 +32,10 @@ function drawGrid(tiles) {
 function moveMap(axis, movement) {
   if (imgsrc !== "placeholder.png") {
     ctx.clearRect(0, 0, gridSize, gridSize);
-    if (axis === 'x') {
+    if (axis === 'x' && imageX+(movement*gridSize) <= 0) {
       imageX = imageX+(movement*gridSize)
     }
-    else {
+    else if (axis === 'y' && imageY+(movement*gridSize) <= 0) {
       imageY = imageY+(movement*gridSize)
     }
     image.src = imgsrc;
@@ -68,7 +68,7 @@ document.addEventListener('drop', async (event) => {
     // Using the path attribute to get absolute file path
     if (f.path) {
       await window.loadMap.loadFile(f.path);
-      //document.getElementById('scream').src = f.path;
+      //document.getElementById('map').src = f.path;
     	ctx.clearRect(0, 0, gridSize, gridSize);
       imgsrc = f.path;
       imageX = 0;

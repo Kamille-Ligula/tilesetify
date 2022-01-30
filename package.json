@@ -1,6 +1,6 @@
 {
   "name": "Tilesetify",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A program to turn a 2D video game map into a tileset.",
   "main": "main.js",
   "scripts": {
