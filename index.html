@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tilesetify v1.0.5</title>
+    <title>Tilesetify v1.0.8</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <!--meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"-->
@@ -11,51 +11,49 @@
   <body>
     <h1 class='noselect'>Tilesetify</h1>
     <table>
-      <body>
-        <tr>
-          <td class='noselect' style="padding-right: 5vw;">
-            <label for="tile-formats">Format de tile*:</label>
-            <select name="tileFormats" id="tile-formats">
-              <option value="8">8*8</option>
-              <option value="16" selected="selected">16*16</option>
-              <option value="24">24*24</option>
-              <option value="32">32*32</option>
-              <option value="48">48*48</option>
-              <option value="64">64*64</option>
-              <option value="128">128*128</option>
+      <tr>
+        <td class='noselect' style="padding-right: 5vw;">
+          <label for="tile-formats">Format de tile*:</label>
+          <select name="tileFormats" id="tile-formats">
+            <option value="8">8*8</option>
+            <option value="16" selected="selected">16*16</option>
+            <option value="24">24*24</option>
+            <option value="32">32*32</option>
+            <option value="48">48*48</option>
+            <option value="64">64*64</option>
+            <option value="128">128*128</option>
+          </select>
+          <br />* : La taille en pixels des carrés selon laquelle Tilesetify va découper votre map.
+          Afin d'obtenir le meilleur résultat, assurez-vous que ce format correspond à la taille des tiles de votre map.
+
+          <p>
+            <label for="tileset-width">Largeur du tileset:</label>
+            <select name="tilesetWidth" id="tileset-width">
+              <option value="4">4 tiles</option>
+              <option value="8">8 tiles</option>
+              <option value="12">12 tiles</option>
+              <option value="16">16 tiles</option>
+              <option value="20">20 tiles</option>
+              <option value="24" selected="selected">24 tiles</option>
+              <option value="32">32 tiles</option>
+              <option value="48">48 tiles</option>
+              <option value="64">64 tiles</option>
             </select>
-            <br />* : La taille en pixels des carrés selon laquelle Tilesetify va découper votre map.
-            Afin d'obtenir le meilleur résultat, assurez-vous que ce format correspond à la taille des tiles de votre map.
+          </p>
 
-            <p>
-              <label for="tileset-width">Largeur du tileset:</label>
-              <select name="tilesetWidth" id="tileset-width">
-                <option value="4">4 tiles</option>
-                <option value="8">8 tiles</option>
-                <option value="12">12 tiles</option>
-                <option value="16">16 tiles</option>
-                <option value="20">20 tiles</option>
-                <option value="24" selected="selected">24 tiles</option>
-                <option value="32">32 tiles</option>
-                <option value="48">48 tiles</option>
-                <option value="64">64 tiles</option>
-              </select>
-            </p>
+          <p><button id="run-tilesetify">C'est parti !</button></p>
 
-            <p><button id="run-tilesetify">C'est parti !</button></p>
-
-            <div id="showMap"><img src="./placeholder.png" draggable="false" ondragstart="return false" class="nodrag" /></div>
-          </td>
-          <td>
-            <div id="showTileset"></div>
-            <!--div style="border:2px solid black;border-radius:3px;padding:5px;display:inline-block" draggable="true" id="drag1">
-              Drag me - File 1
-            </div-->
-          </td>
-        </tr>
-      </body>
+          <div id="showMap"><img src="./placeholder.png" draggable="false" ondragstart="return false" class="nodrag" /></div>
+        </td>
+        <td>
+          <div id="showTileset"></div>
+          <!--div style="border:2px solid black;border-radius:3px;padding:5px;display:inline-block" draggable="true" id="drag1">
+            Drag me - File 1
+          </div-->
+        </td>
+      </tr>
     </table>
-
+    <span class="bottomnotes">Tilesetify, © Samuel Luc 2022</span>
     <!--
     1) Veuillez fermer cette fenêtre et placer une map dans le dossier input présent à la racine de cette application. Veillez à ce que la largeur et la hauteur de votre map soient tous deux des multiples de 16. Dans le cas contraire le programme ne pourra pas la traiter.
     <p/>2) Une fois cela fait, rouvrez cette application et patientez simplement jusqu'à ce qu'elle ait fini de traiter les données de votre map. Votre tileset apparaitra alors automatiquement dans le dossier output. Attention cependant, en fonction de la taille de votre map, ce processus peut prendre de quelques secondes à plusieurs dizaines de minutes, voire même plusieurs heures dans les cas extrêmes de très grosses maps. Tout ce que vous avez à faire est d'attendre en laissant cette fenêtre ouverte. Si vous la fermez le processus devra reprendre de zéro à la prochaine ouverture, mais tant qu'elle est ouverte vous devriez pouvoir continuer à vaquer à vos occupations sans craindre de perte de performance de la part de votre ordinateur.

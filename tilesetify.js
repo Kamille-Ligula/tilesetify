@@ -30,8 +30,8 @@ async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
     return ({error: true, success: false, message: 'no file'})
   }
 
-  //const extension = '.'+file.split(".").pop();
-  // minusExtension = file.substring(0, file.length - extension.length);
+  const extension = '.'+fileName.split(".").pop();
+  const minusExtension = fileName.substring(0, fileName.length - extension.length);
   const tilesImgs = [];
   const tilesHash = [];
   const mapChunks = [];
@@ -42,8 +42,7 @@ async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
   const checkHeight = height/tileHeight;
   if (checkWidth !== Math.round(checkWidth) || checkHeight !== Math.round(checkHeight)) {
     //console.log('Your image\'s width and/or height is invalid (both must be multiples of '+tileWidth+')')
-    //console.log('La largeur et/ou la hauteur de votre map est non valide. Veuillez vérifier que les deux sont bien multiples de '+tileWidth);
-    return ({error: true, success: false, message: 'La largeur et/ou la hauteur de votre map est non valide. Veuillez soit vérifier que les deux sont bien multiples de '+tileWidth+' et faire glisser la map une fois corrigée dans le champ prévu à cet effet, soit modifier le champ dédié à la taille des tiles tels que présents sur la map.'});
+    return ({error: true, success: false, message: 'La largeur et/ou la hauteur de votre map ne correspond pas à votre format de tiles. Veuillez soit vérifier que les deux sont bien multiples de '+tileWidth+' et faire glisser la map une fois corrigée dans le champ prévu à cet effet, soit modifier le champ dédié à la taille des tiles tels que présents sur la map.'});
   }
 
   let chunckWidth, chunkHeight, nbreHorizChunks, nbreVerticChunks;
@@ -169,11 +168,11 @@ async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
       }
     }
 
-    tileset.write('output/tileset-'+fileName);
+    tileset.write('./output/tileset-'+fileName);
   });
 
   console.log(Date.now())
-  return ({error: false, success: true, message: 'output/tileset-'+fileName})
+  return ({error: false, success: true, message: './output/tileset-'+fileName, name: 'tileset-'+fileName})
 }
 
 exports.tilesetify = tilesetify;

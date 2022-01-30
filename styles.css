@@ -47,3 +47,10 @@ td {
   width: 50vw;
   vertical-align: top;
 }
+
+.bottomnotes {
+  left: 1%;
+  bottom: 1%;
+  position: fixed;
+  z-index: 999;
+}

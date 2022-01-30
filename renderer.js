@@ -20,9 +20,7 @@ document.addEventListener('drop', async (event) => {
 
   for (const f of event.dataTransfer.files) {
     // Using the path attribute to get absolute file path
-    console.log('File Path of dragged files: ', f.path)
     if (f.path) {
-      console.log('File Path of dragged files: ', f.path)
       await window.loadMap.loadFile(f.path);
       document.getElementById('showMap').innerHTML = '<img src="'+f.path+'" draggable="false" ondragstart="return false" class="nodrag" />';
     }

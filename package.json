@@ -1,56 +1,35 @@
 {
   "name": "Tilesetify",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "A program to turn a 2D video game map into a tileset.",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron main.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "keywords": [],
+  "build": {
+    "appId": "com.electron.tilesetify",
+    "mac": {
+      "category": "Utility"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "keywords": [
+    "Tileset"
+  ],
   "author": "Samuel Luc",
-  "license": "ISC",
+  "license": "GNU General Public License v3.0",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "^16.0.7"
+    "electron": "^16.0.7",
+    "electron-builder": "^22.14.5"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "express": "^4.17.2",
     "fs": "0.0.1-security",
     "jimp": "^0.16.1",
     "path": "^0.12.7"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "Tilesetify"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }

@@ -1,8 +1,7 @@
 const Jimp = require('jimp');
 const fs = require("fs");
 const path = require('path');
-const https = require('https');
-const { app, BrowserWindow, ipcMain, nativeTheme, nativeImage, NativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, nativeTheme, nativeImage, NativeImage, dialog } = require('electron');
 
 const {manageDirs} = require("./manageDirs");
 const {loadMap, tilesetify} = require("./tilesetify");
@@ -22,6 +21,19 @@ const createWindow = () => {
     win.webContents.send('asynchronous-reply', {error: false, success: false});
     const returnedValue = await tilesetify(tileWidth, tileHeight, tilesetWidth);
     win.webContents.send('asynchronous-reply', returnedValue);
+    if (!returnedValue.error && returnedValue.success) {
+      var options = {
+        title: "Save file",
+        defaultPath : returnedValue.name,
+        buttonLabel : "Save"
+      };
+
+      dialog.showSaveDialog(null, options).then(({ filePath }) => {
+        fs.copyFile(returnedValue.message, filePath, (err) => {
+          if (err) throw err;
+        });
+      });
+    };
   })
 }
 
@@ -41,12 +53,6 @@ app.on('activate', () => {
 })
 
 manageDirs(['output']);
-
-// In main process.
-ipcMain.on('asynchronous-message', (event, arg) => {
-  //console.log(arg) // prints "ping"
-  event.reply('asynchronous-reply', 'pong')
-})
 
 //let tilesetifiableFile;
 let tileWidth = 16;
