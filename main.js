@@ -9,7 +9,7 @@ const {loadMap, tilesetify} = require("./tilesetify");
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1024,
-    height: 600,
+    height: 624,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -30,7 +30,7 @@ const createWindow = () => {
 
       dialog.showSaveDialog(null, options).then(({ filePath }) => {
         fs.copyFile(returnedValue.message, filePath, (err) => {
-          if (err) throw err;
+          if (err) console.log(err);
         });
       });
     };

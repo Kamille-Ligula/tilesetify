@@ -16,6 +16,12 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.floatingCanvas {
+  position: absolute;
+  top: 2%;
+  left: 48%;
+}
+
 .nodrag {
  -moz-user-select: none;
  -webkit-user-select: none;
@@ -29,6 +35,7 @@
 .smallText {
   font-size: 12px;
 }
+
 h1 {
   text-align: center;
 }
@@ -49,8 +56,9 @@ td {
 }
 
 .bottomnotes {
-  left: 1%;
+  right: 1%;
   bottom: 1%;
   position: fixed;
   z-index: 999;
+  background-color:#ddd;
 }

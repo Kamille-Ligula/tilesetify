@@ -3,10 +3,10 @@ const fs = require("fs");
 const {findFactors} = require("./findFactors");
 const {closest} = require("./closest");
 
-let map;
-let width;
-let height;
-let fileName;
+let mapProt;
+let widthProt;
+let heightProt;
+let fileNameProt;
 
 async function loadMap(file) {
   const img = await Jimp.read(file)
@@ -17,14 +17,19 @@ async function loadMap(file) {
       console.error(err);
     })
 
-  map = img[0];
-  width = img[1];
-  height = img[2];
-  fileName = file.split('\\').pop().split('/').pop();
+  mapProt = img[0];
+  widthProt = img[1];
+  heightProt = img[2];
+  fileNameProt = file.split('\\').pop().split('/').pop();
 }
 
 async function tilesetify(tileWidth, tileHeight, tilesetWidth) {
   console.log(Date.now())
+
+  const map = mapProt;
+  const width = widthProt;
+  const height = heightProt;
+  const fileName = fileNameProt;
 
   if (map == undefined) {
     return ({error: true, success: false, message: 'no file'})
