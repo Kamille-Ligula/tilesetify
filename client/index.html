@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tilesetify v1.0.10</title>
+    <title>Tilesetify v2.0.1</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <!--meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"-->
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css">
   </head>
   <body>
-    <div class='noselect' style="width:40%; padding-top:1%; padding-left:1%">
+    <div class='noselect' style="width:40%; padding-left:1%; padding-top:1%">
       <label for="tile-formats">Format des tiles :</label>
       <select name="tileFormats" id="tile-formats">
         <option value="8">8*8</option>
@@ -20,12 +20,6 @@
         <option value="64">64*64</option>
         <option value="128">128*128</option>
       </select>
-
-      <p>
-        Déplacer la portion de map visible sur la grille selon les axes X et Y :
-        <br />X : <span onclick="moveMap('x', 1)">➖</span> <span onclick="moveMap('x', -1)">➕</span>
-        <br />Y : <span onclick="moveMap('y', 1)">➖</span> <span onclick="moveMap('y', -1)">➕</span>
-      </p>
 
       <p>
         <label for="tileset-width">Largeur du tileset :</label>
@@ -42,20 +36,25 @@
         </select>
       </p>
 
-      <p><button id="run-tilesetify">C'est parti !</button></p>
+      <p>
+        <label for="image-formats">Format d'image :</label>
+        <select name="imageFormats" id="image-formats">
+          <option value="default">Original</option>
+          <option value=".png">PNG</option>
+        </select>
+      </p>
 
-      <!--div id="showMap">
-        <img id="map" src="./placeholder.png" draggable="false" ondragstart="return false" class="nodrag" />
-      </div-->
+      <p><button id="run-tilesetify">C'est parti !</button></p>
 
       <div id="showTileset"></div>
     </div>
 
-    <canvas class="floatingCanvas" id="myCanvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
+    <canvas class="floatingCanvas" id="myCanvas" width="512" height="512" style="border:1px solid #000000; background: #cdcdcd;"></canvas>
     <canvas class="floatingCanvas" id="my2Canvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
+    <canvas class="floatingCanvas" id="clickCanvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
 
-    <span class="bottomnotes">Tilesetify, © Samuel Luc 2022</span>
+    <span class="bottomnotes noselect">Tilesetify, © Samuel Luc 2022</span>
 
-    <script src="renderer.js"></script>
+    <script src="./lib/renderer.js"></script>
   </body>
 </html>
