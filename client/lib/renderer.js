@@ -9,6 +9,7 @@ let upbutton = new Image();
 let backbutton = new Image();
 let forwardbutton = new Image();
 let downbutton = new Image();
+let standardPlaceholderSrc = "./img/placeholder-"+DICTIONARY[language]['shortForm']+".png";;
 
 //Browser Detection
 navigator.sayswho= (function(){
@@ -65,7 +66,7 @@ function check(e) {
 }
 
 function moveMap(axis, movement) {
-	if (imgsrc !== "./img/placeholder.png") {
+	if (imgsrc !== standardPlaceholderSrc) {
 	  ctx.clearRect(0, 0, gridSize, gridSize);
 	  if (axis === 'x' && imageX+(movement*gridSize)/4 <= 0) {
 	    imageX = imageX+(movement*gridSize)/4
@@ -78,11 +79,14 @@ function moveMap(axis, movement) {
 }
 
 let gridSize = 512;
-let tile = 16;
+let tileFormatsValue = 16;
+let tilesetWidthValue = 24;
+let imageFormatsValue = 'default';
+let filePath;
 let imageX = 0;
 let imageY = 0;
 let image = new Image();
-let imgsrc = "./img/placeholder.png";
+let imgsrc = standardPlaceholderSrc;
 
 image.onload = function() {
   ctx.drawImage(image, imageX, imageY);
@@ -95,38 +99,39 @@ image.onload = function() {
 image.src = imgsrc;
 
 function drawGrid(tiles) {
-  ct2x.clearRect(0, 0, gridSize, gridSize);
-  for (let i=0; i<gridSize/tiles; i++) {
-    ct2x.beginPath();
-    ct2x.moveTo(i*tiles, 0);
-    ct2x.lineTo(i*tiles, gridSize);
-    ct2x.stroke();
-    ct2x.beginPath();
-    ct2x.moveTo(0, i*tiles);
-    ct2x.lineTo(gridSize, i*tiles);
-    ct2x.stroke();
-  }
+	if (imgsrc !== standardPlaceholderSrc) {
+	  ct2x.clearRect(0, 0, gridSize, gridSize);
+	  for (let i=0; i<gridSize/tiles; i++) {
+	    ct2x.beginPath();
+	    ct2x.moveTo(i*tiles, 0);
+	    ct2x.lineTo(i*tiles, gridSize);
+	    ct2x.stroke();
+	    ct2x.beginPath();
+	    ct2x.moveTo(0, i*tiles);
+	    ct2x.lineTo(gridSize, i*tiles);
+	    ct2x.stroke();
+	  }
+	}
 }
 
 let tileFormats = document.getElementById('tile-formats')
 tileFormats.addEventListener('change', async () => {
-  await window.changeTileFormat.send(tileFormats.value);
-  tile = tileFormats.value;
-  drawGrid(tile);
+  tileFormatsValue = tileFormats.value;
+  drawGrid(tileFormatsValue);
 })
 
 let tilesetWidth = document.getElementById('tileset-width')
 tilesetWidth.addEventListener('change', async () => {
-  await window.changeTilesetWidth.send(tilesetWidth.value);
+	tilesetWidthValue = tilesetWidth.value;
 })
 
 let imageFormats = document.getElementById('image-formats')
 imageFormats.addEventListener('change', async () => {
-  await window.changeImageFormats.send(imageFormats.value);
+	imageFormatsValue = imageFormats.value;
 })
 
 document.getElementById('run-tilesetify').addEventListener('click', async () => {
-  await window.runTilesetify.send();
+  await window.runTilesetify.send([tileFormatsValue, tilesetWidthValue, imageFormatsValue, filePath]);
 })
 
 // Drag and Drop Files
@@ -138,7 +143,7 @@ document.addEventListener('drop', async (event) => {
   for (const f of event.dataTransfer.files) {
     // Using the path attribute to get absolute file path
     if (f.path) {
-      await window.loadMap.loadFile(f.path);
+			filePath = f.path;
       //document.getElementById('map').src = f.path;
     	ctx.clearRect(0, 0, gridSize, gridSize);
       imgsrc = f.path;
@@ -146,7 +151,7 @@ document.addEventListener('drop', async (event) => {
       imageY = 0;
       image.src = imgsrc;
 
-      drawGrid(tile);
+      drawGrid(tileFormatsValue);
 
     	//ct3x.clearRect(0, 0, gridSize, gridSize);
       upbutton.src = "./img/upbutton.png";

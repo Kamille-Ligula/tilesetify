@@ -1,6 +1,6 @@
 {
   "name": "Tilesetify",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A program to turn a 2D video game map into a tileset.",
   "main": "main.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "electron-builder": "^22.14.5"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "fs": "0.0.1-security",
     "jimp": "^0.16.1",
     "path": "^0.12.7"

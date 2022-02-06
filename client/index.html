@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tilesetify v2.0.1</title>
+    <title>Tilesetify v2.1.0</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <!--meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"-->
@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class='noselect' style="width:40%; padding-left:1%; padding-top:1%">
-      <label for="tile-formats">Format des tiles :</label>
+      <label for="tile-formats"><span id="tileFormats"></span></label>
       <select name="tileFormats" id="tile-formats">
         <option value="8">8*8</option>
         <option value="16" selected="selected">16*16</option>
@@ -22,29 +22,19 @@
       </select>
 
       <p>
-        <label for="tileset-width">Largeur du tileset :</label>
-        <select name="tilesetWidth" id="tileset-width">
-          <option value="4">4 tiles</option>
-          <option value="8">8 tiles</option>
-          <option value="12">12 tiles</option>
-          <option value="16">16 tiles</option>
-          <option value="20">20 tiles</option>
-          <option value="24" selected="selected">24 tiles</option>
-          <option value="32">32 tiles</option>
-          <option value="48">48 tiles</option>
-          <option value="64">64 tiles</option>
-        </select>
+        <label for="tileset-width"><span id="tilesetWidth"></span></label>
+        <input type="number" id="tileset-width" name="tilesetWidth" value="24" style='width:3em'><span id="tiles"></span>
       </p>
 
       <p>
-        <label for="image-formats">Format d'image :</label>
+        <label for="image-formats"><span id="imageFormats"></span></label>
         <select name="imageFormats" id="image-formats">
-          <option value="default">Original</option>
+          <option value="default" id="default"></option>
           <option value=".png">PNG</option>
         </select>
       </p>
 
-      <p><button id="run-tilesetify">C'est parti !</button></p>
+      <p><button id="run-tilesetify"></button></p>
 
       <div id="showTileset"></div>
     </div>
@@ -53,8 +43,8 @@
     <canvas class="floatingCanvas" id="my2Canvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
     <canvas class="floatingCanvas" id="clickCanvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
 
-    <span class="bottomnotes noselect">Tilesetify, © Samuel Luc 2022</span>
-
+    <script src="../config/dictionary.js"></script>
+    <script src="./lib/dictionary.js"></script>
     <script src="./lib/renderer.js"></script>
   </body>
 </html>

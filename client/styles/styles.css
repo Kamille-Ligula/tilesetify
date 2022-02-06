@@ -61,5 +61,6 @@ td {
   bottom: 1%;
   position: fixed;
   z-index: 999;
-  background-color:#ddd;
+  background-color: #ddd;
+  padding: 5px;
 }

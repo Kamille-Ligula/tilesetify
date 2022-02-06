@@ -1,24 +1,28 @@
 const Jimp = require('jimp');
 const fs = require("fs");
 const path = require('path');
-const { app, BrowserWindow, ipcMain, nativeTheme, nativeImage, NativeImage, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, nativeTheme, nativeImage, NativeImage, dialog, Menu } = require('electron');
 
-const {loadMap, tilesetify} = require("./lib/tilesetify");
+const {tilesetify} = require("./lib/tilesetify");
+const {DICTIONARY, language} = require("./config/dictionary");
+
+const isMac = process.platform === 'darwin';
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1024,
-    height: 624,
+    height: 600,
     webPreferences: {
       preload: path.join(__dirname, './lib/preload.js')
-    }
+    },
+    icon: __dirname+'./icon/tilesetifyicon.png'
   })
   win.loadFile('./client/index.html')
   //win.webContents.openDevTools()
 
   ipcMain.on('asynchronous-tilesetify', async (event, arg) => {
     win.webContents.send('asynchronous-reply', {status: 'ongoing', message: 'ongoing'});
-    const returnedValue = await tilesetify(tileWidth, tileHeight, tilesetWidth, imageFormat);
+    const returnedValue = await tilesetify(arg[0], arg[0], arg[1], arg[2], arg[3]);
     win.webContents.send('asynchronous-reply', returnedValue);
   })
 }
@@ -37,27 +41,6 @@ app.on('activate', () => {
   }
 })
 
-//let tilesetifiableFile;
-let tileWidth = 16;
-let tileHeight = 16;
-let tilesetWidth = 24;
-let imageFormat = 'default';
-ipcMain.on('asynchronous-loadMap', (event, arg) => {
-  //tilesetifiableFile = arg.split('\\').pop().split('/').pop();
-  loadMap(arg);
-  //fs.copyFile(arg, './input/'+tilesetifiableFile, (err) => { if (err) throw err; });
-})
-ipcMain.on('asynchronous-change-tile-format', (event, arg) => {
-  tileWidth = arg;
-  tileHeight = arg;
-})
-ipcMain.on('asynchronous-change-tileset-width', (event, arg) => {
-  tilesetWidth = arg;
-})
-ipcMain.on('asynchronous-change-image-format', (event, arg) => {
-  imageFormat = arg;
-})
-
 // Native File Drag & Drop
 // https://www.electronjs.org/docs/latest/tutorial/native-file-drag-drop
 ipcMain.on('ondragstart', (event, filePath) => {
@@ -66,3 +49,33 @@ ipcMain.on('ondragstart', (event, filePath) => {
     icon: iconName,
   })
 })
+
+const template = [
+  {
+    label: DICTIONARY[language]['File'],
+    submenu: [
+      isMac ? { label: DICTIONARY[language]['Quit'], role: 'close' } : { label: DICTIONARY[language]['Quit'], role: 'quit' }
+    ]
+  },
+  {
+    label: DICTIONARY[language]['About'],
+    role: 'help',
+    submenu: [
+      {
+        label: DICTIONARY[language]['Tilesetify'],
+        click: function () {
+          dialog.showMessageBox(
+            null,
+            {
+              title: DICTIONARY[language]['About'],
+              message: DICTIONARY[language]['AboutMessage'],
+            }
+          );
+        },
+      }
+    ]
+  },
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
