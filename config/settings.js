@@ -1,4 +1,6 @@
 const language = 'Français'; // <-- Here you set the language for the whole app
+const version = '2.1.1';
+const copyrightYear = '2022';
 
 const DICTIONARY = {
   'Français': {
@@ -7,7 +9,8 @@ const DICTIONARY = {
     'Quit': 'Quitter',
     'About': 'À propos',
     'Tilesetify': 'Tilesetify',
-    'AboutMessage': 'Tilesetify, © Samuel Luc 2022',
+    'Version': 'Version',
+    'AboutMessage': 'Tilesetify v'+version+', © Samuel LUC '+copyrightYear,
     "TilesetReady1": "Votre tileset a été créé en ",
     "TilesetReady2": " secondes. Vous pouvez déposer une autre map si vous désirez produire d'autres tilesets.",
     "WrongWidthHeight1": "La largeur et/ou la hauteur de votre map ne correspond pas à votre format de tiles. Veuillez soit vérifier que les deux sont bien multiples de ",
@@ -27,7 +30,8 @@ const DICTIONARY = {
     'Quit': 'Quit',
     'About': 'About',
     'Tilesetify': 'Tilesetify',
-    'AboutMessage': 'Tilesetify, © Samuel Luc 2022',
+    'Version': 'Version',
+    'AboutMessage': 'Tilesetify v'+version+', © Samuel LUC '+copyrightYear,
     "TilesetReady1": "Your tileset was created in ",
     "TilesetReady2": " seconds. You can drag and drop other maps here if you wish to create more tilesets.",
     "WrongWidthHeight1": "Either your map's width or height doesn't match your settings. Please make sure that both are multiples of ",
@@ -43,5 +47,9 @@ const DICTIONARY = {
   },
 }
 
-exports.DICTIONARY = DICTIONARY;
-exports.language = language;
+module.exports = {
+  language: language,
+  version: version,
+  copyrightYear: copyrightYear,
+  DICTIONARY: DICTIONARY,
+};

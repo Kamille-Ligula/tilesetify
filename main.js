@@ -4,7 +4,7 @@ const path = require('path');
 const { app, BrowserWindow, ipcMain, nativeTheme, nativeImage, NativeImage, dialog, Menu } = require('electron');
 
 const {tilesetify} = require("./lib/tilesetify");
-const {DICTIONARY, language} = require("./config/dictionary");
+const {DICTIONARY, language} = require("./config/settings");
 
 const isMac = process.platform === 'darwin';
 
@@ -15,7 +15,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, './lib/preload.js')
     },
-    icon: __dirname+'./icon/tilesetifyicon.png'
+    icon: __dirname+'./icon.ico'
   })
   win.loadFile('./client/index.html')
   //win.webContents.openDevTools()
@@ -62,12 +62,12 @@ const template = [
     role: 'help',
     submenu: [
       {
-        label: DICTIONARY[language]['Tilesetify'],
+        label: DICTIONARY[language]['Version'],
         click: function () {
           dialog.showMessageBox(
             null,
             {
-              title: DICTIONARY[language]['About'],
+              title: DICTIONARY[language]['Version'],
               message: DICTIONARY[language]['AboutMessage'],
             }
           );
