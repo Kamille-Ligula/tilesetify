@@ -1,5 +1,5 @@
 const language = 'Français'; // <-- Here you set the language for the whole app
-const version = '2.1.1';
+const version = '2.1.3';
 const copyrightYear = '2022';
 
 const DICTIONARY = {
