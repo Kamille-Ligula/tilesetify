@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Tilesetify</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <!--meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"-->
+    <!--meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" /-->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" type="text/css" href="./styles/styles.css">
   </head>
   <body>
-    <div class='noselect' style="width:40%; padding-left:1%; padding-top:1%">
+    <div class='noselect commands'>
       <label for="tile-formats"><span id="tileFormats"></span></label>
       <select name="tileFormats" id="tile-formats">
         <option value="8">8*8</option>
@@ -23,7 +23,7 @@
 
       <p>
         <label for="tileset-width"><span id="tilesetWidth"></span></label>
-        <input type="number" id="tileset-width" name="tilesetWidth" value="24" style='width:3em'><span id="tiles"></span>
+        <input type="number" id="tileset-width" name="tilesetWidth" value="24"><span id="tiles"></span>
       </p>
 
       <p>
@@ -39,9 +39,9 @@
       <div id="showTileset"></div>
     </div>
 
-    <canvas class="floatingCanvas" id="myCanvas" width="512" height="512" style="border:1px solid #000000; background: #c8c4c4;"></canvas>
-    <canvas class="floatingCanvas" id="my2Canvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
-    <canvas class="floatingCanvas" id="clickCanvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
+    <canvas class="floatingCanvas" id="myCanvas" width="512" height="512"></canvas>
+    <canvas class="floatingCanvas" id="my2Canvas" width="512" height="512"></canvas>
+    <canvas class="floatingCanvas" id="clickCanvas" width="512" height="512"></canvas>
 
     <script src="../config/settings.js"></script>
     <script src="./lib/dictionary.js"></script>

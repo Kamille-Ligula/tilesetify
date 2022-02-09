@@ -1,9 +1,6 @@
-@media (prefers-color-scheme: dark) {
-  body { background: #333; color: white; }
-}
-
-@media (prefers-color-scheme: light) {
-  body { background: #ddd; color: black; }
+body {
+  background: #ddd;
+  color: black;
 }
 
 .noselect {
@@ -18,8 +15,21 @@
 
 .floatingCanvas {
   position: absolute;
-  top: 2%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   left: 48%;
+  border:1px solid #000000;
+}
+
+#myCanvas {
+  background: #c8c4c4;
+}
+
+.commands {
+  width: 40%;
+  padding-left:1%;
+  padding-top:1%
 }
 
 .nodrag {
@@ -44,6 +54,10 @@ h1 {
   position: fixed;
   left: 10vw;
   top: 10vh;
+}
+
+#tileset-width {
+  width: 3em;
 }
 
 img {
