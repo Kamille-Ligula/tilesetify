@@ -1,5 +1,5 @@
 const language = 'Français'; // <-- Here you set the language for the whole app
-const version = '2.1.4';
+const version = '2.1.6';
 const copyrightYear = '2022';
 
 const DICTIONARY = {
@@ -38,7 +38,7 @@ const DICTIONARY = {
     "WrongWidthHeight2": " before trying to process your map, or edit your settings.",
     "NoMap": "Drap and drop a map in the designated area.",
     "ProcessingMap": "Your map is being processed. Please wait for a few seconds.",
-    "tileFormats": "Size of tiles:",
+    "tileFormats": "Tile size:",
     "tilesetWidth": "Tileset width:",
     "imageFormats": "Image file format:",
     "default": "default",
